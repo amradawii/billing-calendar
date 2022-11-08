@@ -1,5 +1,7 @@
 <?php
 
+use App\Scheduling\Occurrence;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -11,3 +13,18 @@
 */
 
 uses(Tests\TestCase::class)->in('Feature');
+
+/*
+|--------------------------------------------------------------------------
+| Helpers
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * @param  list<Occurrence>  $occurrences
+ * @return list<string>
+ */
+function dates(array $occurrences): array
+{
+    return array_map(fn (Occurrence $o) => $o->date->format('Y-m-d'), $occurrences);
+}

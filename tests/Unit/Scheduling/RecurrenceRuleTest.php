@@ -1,6 +1,8 @@
 <?php
 
 use App\Scheduling\Frequency;
+use App\Scheduling\GapPolicy;
+use App\Scheduling\OverlapPolicy;
 use App\Scheduling\RecurrenceRule;
 
 it('keeps the start date as a calendar date at midnight UTC', function () {
@@ -14,7 +16,9 @@ it('defaults to every 1 period at 09:00 UTC', function () {
 
     expect($rule->interval)->toBe(1)
         ->and($rule->localTime)->toBe('09:00')
-        ->and($rule->timeZone)->toBe('UTC');
+        ->and($rule->timeZone)->toBe('UTC')
+        ->and($rule->gapPolicy)->toBe(GapPolicy::SHIFT_FORWARD)
+        ->and($rule->overlapPolicy)->toBe(OverlapPolicy::EARLIER);
 });
 
 it('rejects invalid start dates', function (string $date) {

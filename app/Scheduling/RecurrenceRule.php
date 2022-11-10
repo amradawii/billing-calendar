@@ -8,6 +8,9 @@ use InvalidArgumentException;
 
 /**
  * "Starting on this date, every N days/weeks/months/years, at this wall-clock time in this time zone."
+ *
+ * The time is stored as a wall time plus an IANA zone, never as a UTC instant: each occurrence is converted to UTC
+ * when it is computed, with whatever rules the zone has at that point.
  */
 final class RecurrenceRule
 {
@@ -23,6 +26,8 @@ final class RecurrenceRule
         public readonly int $interval = 1,
         public readonly string $localTime = '09:00',
         public readonly string $timeZone = 'UTC',
+        public readonly GapPolicy $gapPolicy = GapPolicy::SHIFT_FORWARD,
+        public readonly OverlapPolicy $overlapPolicy = OverlapPolicy::EARLIER,
     ) {
         if (! preg_match('/^(\d{4})-(\d{2})-(\d{2})\z/', $startDate, $m) || ! checkdate((int) $m[2], (int) $m[3], (int) $m[1])) {
             throw new InvalidArgumentException("Invalid start date \"{$startDate}\", expected YYYY-MM-DD.");

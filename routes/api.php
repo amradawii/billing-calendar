@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ScheduleController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -10,3 +13,5 @@
 | is assigned the "api" middleware group.
 |
 */
+
+Route::get('/schedule', ScheduleController::class)->name('schedule');

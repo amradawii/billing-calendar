@@ -47,4 +47,15 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    /**
+     * API routes always answer in JSON, even when the client did not send "Accept: application/json".
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function shouldReturnJson($request, Throwable $e)
+    {
+        return $request->is('api/*') || parent::shouldReturnJson($request, $e);
+    }
 }

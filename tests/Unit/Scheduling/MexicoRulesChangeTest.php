@@ -34,10 +34,7 @@ it('keeps every reminder at 09:00 when expanded from the wall time under the new
     expect(array_unique(array_map(fn ($o) => $o->local->format('H:i P'), $correct)))->toBe(['09:00 -06:00'])
         ->and(array_unique(array_map(fn ($o) => $o->utc->format('H:i'), $correct)))->toBe(['15:00'])
         ->and(count(array_filter($correct, fn ($o) => $o->notes !== [])))->toBe(7)
-        ->and($correct[5]->notes)->toBe([
-            'Under the old rules 09:00 on 2023-04-15 was summer time (UTC-05:00). Mexico abolished DST in October 2022: '
-            .'expanded from the wall time it stays at 09:00, now UTC-06:00',
-        ])
+        ->and($correct[5]->notes)->toBe(['Summer time (UTC-05:00) under the old rules; under the new rules 09:00 is UTC-06:00 (15:00 UTC)'])
         ->and($correct[4]->notes)->toBe([]);
 });
 

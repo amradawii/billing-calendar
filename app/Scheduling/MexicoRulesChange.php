@@ -55,9 +55,8 @@ final class MexicoRulesChange
             }
 
             return new Occurrence($occurrence->index, $occurrence->local, [...$occurrence->notes, sprintf(
-                'Under the old rules %s on %s was summer time (UTC-05:00). Mexico abolished DST in October 2022: '
-                .'expanded from the wall time it stays at %s, now UTC-06:00',
-                $occurrence->local->format('H:i'), $occurrence->local->format('Y-m-d'), $occurrence->local->format('H:i'),
+                'Summer time (UTC-05:00) under the old rules; under the new rules %s is UTC-06:00 (%s UTC)',
+                $occurrence->local->format('H:i'), $occurrence->utc->format('H:i'),
             )]);
         }, $this->wallTimes($rule, $count));
     }
